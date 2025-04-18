@@ -1,0 +1,65 @@
+frontend/
+├── public/                         # Статические файлы (favicon, картинки, robots.txt)
+│   └── assets/                     # Изображения букетов, логотипы и прочее
+│       ├── boquet_1.webp
+│       ├── logo.svg
+│       └── ...
+│
+├── src/                            # Исходный код приложения
+│   ├── components/                # Переиспользуемые компоненты (UI-блоки)
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   └── BouquetCard.jsx
+│   │
+│   ├── pages/                     # Отдельные страницы
+│   │   ├── HomePage.jsx
+│   │   ├── CatalogPage.jsx
+│   │   ├── ConstructorPage.jsx
+│   │   ├── CartPage.jsx
+│   │   ├── FavoritesPage.jsx
+│   │   ├── AdminPanel.jsx
+│   │   └── NotFound.jsx
+│   │
+│   ├── layouts/                   # Шаблоны макетов (если есть)
+│   │   └── MainLayout.jsx
+│   │
+│   ├── store/                     # Zustand: глобальные состояния
+│   │   ├── useCartStore.js
+│   │   ├── useAuthStore.js
+│   │   └── useUIStore.js
+│   │
+│   ├── services/                  # API-запросы (axios или fetch)
+│   │   ├── authService.js
+│   │   ├── bouquetService.js
+│   │   ├── cartService.js
+│   │   └── adminService.js
+│   │
+│   ├── hooks/                     # Кастомные React хуки
+│   │   ├── useFetch.js
+│   │   └── useAuth.js
+│   │
+│   ├── utils/                     # Утилиты (форматирование, преобразования и т.д.)
+│   │   ├── formatPrice.js
+│   │   └── validators.js
+│   │
+│   ├── types/                     # Типы и интерфейсы (если используете TypeScript)
+│   │   └── bouquet.d.ts
+│   │
+│   ├── styles/                    # Общие стили (если не используется TailwindCSS)
+│   │   ├── index.css
+│   │   └── theme.css
+│   │
+│   ├── App.jsx                    # Основной компонент
+│   ├── main.jsx                   # Точка входа
+│   └── router.jsx                 # Конфигурация маршрутов
+│
+├── tests/                         # Тесты (Jest + Testing Library)
+│   ├── auth.test.jsx
+│   ├── constructor.test.jsx
+│   └── ...
+│
+├── .eslintrc.cjs                  # Настройки линтера
+├── vite.config.js                 # Конфигурация Vite
+├── index.html                     # HTML-шаблон для Vite
+├── package.json                   # Зависимости
+└── README.md                      # Документация

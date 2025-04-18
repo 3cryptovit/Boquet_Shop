@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  user
+  admin
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  password      String
+  username      String         @unique
+  role          Role           @default(user)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  bouquets      Bouquet[]
+  orders        Order[]
+  favorites     Favorite[]
+  refreshTokens RefreshToken[]
+  cart          Cart[]
+}
+
+model Bouquet {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String?
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  price       Float         @default(0)
+  isPublic    Boolean       @default(true)
+  orderItems  OrderItem[]
+  favorites   Favorite[]
+  cart        Cart[]
+  cells       BouquetCell[] // 💡 Главное отличие – вся структура макета тут
+}
+
+model BouquetCell {
+  id        Int   @id @default(autoincrement())
+  bouquetId Int
+  flowerId  Int? // 💡 null — пустая ячейка
+  layer     Int
+  positionX Int
+  positionY Int
+  angle     Float
+  zIndex    Int
+  position  Int // Порядок как во фронте (cell.id)
+
+  bouquet Bouquet @relation(fields: [bouquetId], references: [id])
+  flower  Flower? @relation(fields: [flowerId], references: [id])
+}
+
+model Flower {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  price        Float
+  imageUrl     String?
+  bouquetCells BouquetCell[]
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+  total     Float
+  status    String      @default("pending")
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id               Int             @id @default(autoincrement())
+  orderId          Int
+  bouquetId        Int?
+  customBouquetId  Int?
+
+  quantity         Int
+
+  order            Order           @relation(fields: [orderId], references: [id])
+  bouquet          Bouquet?        @relation(fields: [bouquetId], references: [id])
+  customBouquet    CustomBouquet? @relation(fields: [customBouquetId], references: [id])
+}
+
+
+model Favorite {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  bouquetId Int
+  user      User    @relation(fields: [userId], references: [id])
+  bouquet   Bouquet @relation(fields: [bouquetId], references: [id])
+
+  @@unique([userId, bouquetId])
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+}
+model CustomBouquet {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  imageUrl    String
+  flowers     String // 💡 JSON-строка с макетом (layer/x/y/angle и т.д.)
+  cart        Cart?
+
+  orderItems  OrderItem[] 
+}
+
+model RevokedToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Cart {
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  bouquetId       Int?
+  customBouquetId Int?           @unique
+  quantity        Int            @default(1)
+  user            User           @relation(fields: [userId], references: [id])
+  bouquet         Bouquet?       @relation(fields: [bouquetId], references: [id])
+  customBouquet   CustomBouquet? @relation(fields: [customBouquetId], references: [id])
+  createdAt       DateTime       @default(now())
+
+  @@unique([userId, bouquetId])
+}

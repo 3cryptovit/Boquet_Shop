@@ -1,0 +1,59 @@
+backend/
+├── src/
+│   ├── controllers/                    # Контроллеры
+│   │   ├── admin.controller.js        # Управление админ-панелью
+│   │   ├── auth.controller.js         # Аутентификация и авторизация
+│   │   ├── favorites.controller.js    # Управление избранным
+│   │   ├── order.controller.js        # Управление заказами
+│   │   ├── cart.controller.js         # Управление корзиной
+│   │   ├── customBouquet.controller.js # Управление кастомными букетами
+│   │   ├── bouquet.controller.js      # Управление букетами
+│   │   └── flower.controller.js       # Управление цветами
+│   │
+│   ├── routes/                        # Маршруты API
+│   │   ├── admin.routes.js           # Маршруты админ-панели
+│   │   ├── favorites.routes.js       # Маршруты избранного
+│   │   ├── order.routes.js           # Маршруты заказов
+│   │   ├── cart.routes.js            # Маршруты корзины
+│   │   ├── customBouquet.routes.js   # Маршруты кастомных букетов
+│   │   ├── bouquet.routes.js         # Маршруты букетов
+│   │   ├── flower.routes.js          # Маршруты цветов
+│   │   └── auth.routes.js            # Маршруты аутентификации
+│   │
+│   ├── services/                      # Сервисы
+│   │   ├── admin.service.js          # Бизнес-логика админ-панели
+│   │   └── favorites.service.js      # Бизнес-логика избранного
+│   │
+│   ├── middleware/                    # Промежуточное ПО
+│   │   ├── requireAuth.js            # Проверка аутентификации
+│   │   └── requireAdmin.js           # Проверка прав администратора
+│   │
+│   ├── utils/                         # Утилиты
+│   │   ├── multer.js                 # Обработка загрузки файлов
+│   │   ├── calculateTotal.js         # Расчет итоговой суммы
+│   │   └── cookies.js                # Работа с куками
+│   │
+│   └── scripts/                       # Скрипты
+│       └── cleanupRevokedTokens.js   # Очистка отозванных токенов
+│
+├── prisma/                            # Работа с БД
+│   ├── migrations/                    # Миграции
+│   ├── schema.prisma                  # Схема БД
+│   ├── client.js                      # Клиент Prisma
+│   └── seed.js                        # Начальные данные
+│
+├── logs/                              # Логи
+├── public/                            # Статические файлы
+│
+├── index.js                           # Точка входа приложения
+├── package.json                       # Зависимости
+├── .env                              # Переменные окружения
+│
+└── Тесты/                             # Тестовые скрипты
+    ├── auth_test.sh                   # Тесты аутентификации
+    ├── cart_test.sh                   # Тесты корзины
+    ├── bouquet_test.sh                # Тесты букетов
+    ├── favorites_test.sh              # Тесты избранного
+    ├── admin_test.sh                  # Тесты админ-панели
+    ├── auth_blacklist_test.sh         # Тесты черного списка
+    └── run_all_tests.sh               # Запуск всех тестов
