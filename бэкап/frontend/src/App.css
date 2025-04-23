@@ -1,0 +1,84 @@
+@import "./index.css";
+
+/* ✅ Основной стиль приложения */
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+/* ✅ Контейнер контента */
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ✅ Стили для заголовков */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* ✅ Кнопки */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ff4d79;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #e63e68;
+}
+
+/* ✅ Сетка букетов */
+.bouquet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.bouquet-card {
+  width: 250px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.bouquet-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* ✅ Адаптивность */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .catalog {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .catalog-item {
+    width: 90%;
+  }
+
+  .bouquet-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bouquet-card {
+    width: 90%;
+  }
+}

@@ -24,23 +24,31 @@ exports.getBouquetById = async (req, res) => {
   try {
     const id = Number(req.params.id);
     const bouquet = await prisma.bouquet.findUnique({
-      where: { id },
+      where: {
+        id: id
+      },
       include: {
-        flowers: {
+        bouquetFlowers: {
           include: {
             flower: true
           }
         },
-        cells: true
+        cells: true,
+        user: true,
+        orderItems: true,
+        favorites: true,
+        cart: true
       }
     });
 
-    if (!bouquet) return res.status(404).json({ error: 'Букет не найден' });
+    if (!bouquet) {
+      return res.status(404).json({ message: "Букет не найден" });
+    }
 
     res.json(bouquet);
-  } catch (err) {
-    console.error('Ошибка при получении букета:', err);
-    res.status(500).json({ error: 'Ошибка сервера' });
+  } catch (error) {
+    console.error("Ошибка при получении букета:", error);
+    res.status(500).json({ message: "Ошибка сервера" });
   }
 };
 

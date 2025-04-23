@@ -1,47 +1,79 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function HomePage() {
-  const [username, setUsername] = useState(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("username");
-    if (storedUser && storedUser !== "undefined") {
-      setUsername(storedUser);
-    }
-  }, []);
-
+const HomePage = () => {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>
-        {username ? `Добро пожаловать, ${username}!` : "Добро пожаловать в Boquet Shop!"}
-      </h1>
-      <p style={styles.subtitle}>Собери идеальный букет для любого случая.</p>
+    <div className="main-content">
+      <section className="hero">
+        <div className="container">
+          <h1>Boquet Shop</h1>
+          <p>Создавайте букеты своей мечты или выбирайте из нашей коллекции</p>
+          <div className="mt-10 flex gap-5 justify-center">
+            <Link to="/catalog" className="btn btn-primary">
+              Смотреть каталог
+            </Link>
+            <Link to="/constructor" className="btn btn-outline">
+              Создать букет
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      <div style={styles.buttonContainer}>
-        <Link to="/catalog" style={styles.button}>Перейти в каталог</Link>
-        {!username && (
-          <Link to="/login" style={{ ...styles.button, marginLeft: "15px", background: "#4CAF50" }}>Войти в аккаунт</Link>
-        )}
-      </div>
+      <section className="py-20 bg-white bg-opacity-80 backdrop-blur-md">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="card fade-in text-center p-8">
+              <div className="text-4xl mb-5">🎨</div>
+              <h3 className="text-xl mb-4 text-primary font-semibold">AI Конструктор</h3>
+              <p className="text-gray-600">
+                Создавайте уникальные букеты с помощью искусственного интеллекта
+              </p>
+            </div>
 
-      <div style={styles.images}>
-        <div style={{ ...styles.imageBox, backgroundImage: `url('/assets/example_1.jpg')` }}>🌹 Романтическая классика</div>
-        <div style={{ ...styles.imageBox, backgroundImage: `url('/assets/example_2.jpg')` }}>🌷 Весенняя свежесть</div>
-        <div style={{ ...styles.imageBox, backgroundImage: `url('/assets/example_3.jpg')` }}>🌻 Солнечный день</div>
-      </div>
+            <div className="card fade-in text-center p-8">
+              <div className="text-4xl mb-5">🚚</div>
+              <h3 className="text-xl mb-4 text-primary font-semibold">Быстрая доставка</h3>
+              <p className="text-gray-600">
+                Доставляем букеты в день заказа по всему городу
+              </p>
+            </div>
+
+            <div className="card fade-in text-center p-8">
+              <div className="text-4xl mb-5">💐</div>
+              <h3 className="text-xl mb-4 text-primary font-semibold">Свежие цветы</h3>
+              <p className="text-gray-600">
+                Работаем только со свежими цветами от проверенных поставщиков
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-primary bg-opacity-10">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Почему выбирают нас</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold mb-3">Индивидуальный подход</h3>
+              <p className="text-gray-600">Создаем букеты под ваши предпочтения и пожелания</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold mb-3">Гарантия качества</h3>
+              <p className="text-gray-600">Гарантируем свежесть цветов до 7 дней</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold mb-3">Быстрая доставка</h3>
+              <p className="text-gray-600">Доставка в течение 2 часов по городу</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold mb-3">Большой выбор</h3>
+              <p className="text-gray-600">Более 100 видов цветов и готовых композиций</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
-}
-
-const styles = {
-  container: { textAlign: "center", padding: "40px" },
-  title: { fontSize: "2.5rem", color: "#333" },
-  subtitle: { fontSize: "1.5rem", color: "#666", marginBottom: "20px" },
-  buttonContainer: { marginTop: "20px" },
-  button: { padding: "10px 20px", background: "#ff4081", color: "white", textDecoration: "none", borderRadius: "5px", fontSize: "1.2rem" },
-  images: { display: "flex", justifyContent: "center", gap: "20px", marginTop: "40px" },
-  imageBox: { width: "200px", height: "250px", backgroundSize: "cover", backgroundPosition: "center", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", color: "white", fontWeight: "bold", borderRadius: "10px", textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }
 };
 
 export default HomePage;
